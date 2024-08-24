@@ -71,6 +71,29 @@ class Simulation {
         }
     }
 
+    public async updateDronePositions(): Promise<void> {
+        this.drones.forEach(drone => {
+          drone.position.latitude += (Math.random() - 0.5) * 0.01;
+          drone.position.longitude += (Math.random() - 0.5) * 0.01;
+          drone.battery -= Math.random() * 2;
+          if (drone.battery < 0) drone.battery = 0;
+          drone.status = drone.battery < 20 ? 'returning' : (Math.random() > 0.7 ? 'scanning' : 'idle');
+        });
+        await this.sendDroneData();
+      }
+    
+      public async updatePlantData(): Promise<void> {
+        this.plants.forEach(plant => {
+          plant.health += (Math.random() - 0.5) * 5;
+          plant.moisture += (Math.random() - 0.5) * 5;
+          plant.temperature += (Math.random() - 0.5);
+    
+          plant.health = Math.max(0, Math.min(100, plant.health));
+          plant.moisture = Math.max(0, Math.min(100, plant.moisture));
+          plant.temperature = Math.max(0, Math.min(50, plant.temperature));
+        });
+      }
+
     private getScannedPlants(drone: DroneData): PlantData[] {
         // Simulate scanning plants within a certain radius
         const radius = 0.1; // Degrees
