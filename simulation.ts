@@ -1,12 +1,15 @@
-import { DroneData, PlantData, SimulationData } from "./types";
+import MqttClient from "./mqtt-client";
+import { DroneData, MqttMessage, PlantData, SimulationData } from "./types";
 
 class Simulation {
     private drones: DroneData[] = [];
     private plants: PlantData[] = [];
+    private mqttClient: MqttClient;
 
-    constructor(numDrones: number, numPlants: number) {
+    constructor(numDrones: number, numPlants: number, mqttBrokerUrl: string) {
         this.initializeDrones(numDrones);
         this.initializePlants(numPlants);
+        this.mqttClient = new MqttClient(mqttBrokerUrl)
     }
 
     private initializeDrones(numDrones: number): void {
@@ -45,10 +48,41 @@ class Simulation {
     /**
      * updateSimulation
      */
-    public updateSimulation(): void {
+    public async updateSimulation(): Promise<void> {
         this.updateDrones();
         this.updatePlants();
+        await this.sendDroneData();
     }
+
+    private async sendDroneData(): Promise <void> {
+        for (const drone of this.drones) {
+            const message: MqttMessage = {
+                droneId: drone.id,
+                timestamp: Date.now(),
+                data: {
+                position: drone.position,
+                battery: drone.battery,
+                status: drone.status,
+                scannedPlants: this.getScannedPlants(drone),
+                },
+            };
+
+            await this.mqttClient.publish('drones/data', message);
+        }
+    }
+
+    private getScannedPlants(drone: DroneData): PlantData[] {
+        // Simulate scanning plants within a certain radius
+        const radius = 0.1; // Degrees
+        return this.plants.filter(plant => 
+        Math.abs(plant.position.latitude - drone.position.latitude) < radius &&
+        Math.abs(plant.position.longitude - drone.position.longitude) < radius
+        );
+    }
+
+    public async close(): Promise <void> {
+        await this.mqttClient.close();
+    }        
 
     private updateDrones() {
         this.drones.forEach(drone => {

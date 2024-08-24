@@ -23,3 +23,17 @@ export interface DroneData {
     drones: DroneData[];
     plants: PlantData[];
   }
+
+  export interface MqttMessage {
+    droneId: number;
+    timestamp: number;
+    data: {
+      position: {
+        latitude: number;
+        longitude: number;
+      };
+      battery: number;
+      status: 'idle' | 'scanning' | 'returning';
+      scannedPlants: PlantData[];
+    }
+  }
