@@ -1,0 +1,9 @@
+{
+  "name": "mqtt-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/mqtt-client/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project mqtt-client --web",
+  "targets": {}
+}
