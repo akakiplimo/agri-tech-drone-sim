@@ -1,77 +1,105 @@
-# AgriTechDroneProject
+# Agri-Tech Drone Simulation Project
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Overview
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+This project simulates an agri-tech drone system for monitoring plant health. It uses a microservices architecture implemented in a Nx monorepo, featuring drone simulation, real-time data processing, and a web client for visualization.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Features
 
-## Finish your remote caching setup
+- Drone simulation with realistic movement and battery depletion
+- Plant health monitoring
+- Real-time data transmission using MQTT
+- RESTful API for data retrieval
+- Web client for data visualization
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/x0IdCzWUYZ)
+## Tech Stack
 
+- Nx: Monorepo management
+- TypeScript: Primary language
+- Node.js: Runtime environment
+- Express: API server
+- React: Web client
+- MQTT: Message broker for real-time communication
 
-## Run tasks
+## Project Structure
 
-To run tasks with Nx use:
+agri-tech-drone-project/
+├── apps/
+│   ├── api/              # Express API server
+│   ├── simulation/       # Drone simulation service
+│   └── web-client/       # React web application
+├── libs/
+│   ├── shared-types/     # Shared TypeScript interfaces
+│   ├── mqtt-client/      # MQTT client library
+│   └── data-processing/  # Data processing utilities
+├── tools/
+├── nx.json
+├── package.json
+└── tsconfig.base.json
 
-```sh
-npx nx <target> <project-name>
-```
+## Prerequisites
 
-For example:
+- Node.js (v14+)
+- npm (v6+)
+- MQTT broker (e.g., Mosquitto)
 
-```sh
-npx nx build myproject
-```
+## Setup
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+1. Clone the repository:
+git clone https://github.com/akakiplimo/agri-tech-drone-project.git
+cd agri-tech-drone-project
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+2. Install dependencies:
+npm install
 
-## Add new projects
+3. Set up environment variables:
+Create a `.env` file in the root directory with the following content:
+MQTT_BROKER_URL=mqtt://localhost:1883
+API_PORT=3333
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+## Running the Project
 
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
-```
+1. Start the MQTT broker (e.g., Mosquitto)
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+2. Run the API server:
+nx serve api
 
-```sh
-# Genenerate an app
-npx nx g @nx/react:app demo
+3. Run the simulation service:
+nx serve simulation
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
-```
+4. Run the web client:
+nx serve web-client
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+5. Access the web client at `http://localhost:4200`
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Development
 
+- To generate a new library:
+nx g @nrwl/node:library my-new-lib
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- To generate a new application:
+nx g @nrwl/node:application my-new-app
 
-## Install Nx Console
+- To run tests:
+nx test
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- To run linting:
+nx lint
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Deployment
 
-## Useful links
+For deployment instructions, please refer to the `DEPLOYMENT.md` file.
 
-Learn more:
+## Contributing
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Please read `CONTRIBUTING.md` for details on our code of conduct and the process for submitting pull requests.
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## License
+
+This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+
+## Acknowledgments
+
+- Nx team for the excellent monorepo tools
+- MQTT.js contributors for the robust MQTT client library
+- All contributors and maintainers of this project
