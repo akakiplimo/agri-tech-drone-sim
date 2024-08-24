@@ -23,7 +23,7 @@ This project simulates an agri-tech drone system for monitoring plant health. It
 
 ## Project Structure
 
-<pre> ```plaintext 
+<pre> 
 agri-tech-drone-project/
 ├── apps/
 │   ├── api/              # Express API server
@@ -37,7 +37,7 @@ agri-tech-drone-project/
 ├── nx.json
 ├── package.json
 └── tsconfig.base.json
-``` </pre>
+</pre>
 
 ## Prerequisites
 
