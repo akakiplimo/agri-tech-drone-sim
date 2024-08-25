@@ -58,10 +58,12 @@ function simulateDroneMovement() {
       if (drone.battery < 15) {
         drone.status = 'returning';
         drone.battery -= Math.random() * 5;
-      } else if (drone.battery < 10) {
-        drone.status = 'charging';
       } else {
         drone.status = Math.random() > 0.7 ? 'scanning' : 'idle';
+      }
+
+      if (drone.battery < 10) {
+        drone.status = 'charging';
       }
     } else {
       drone.battery += 5; // Charging logic
